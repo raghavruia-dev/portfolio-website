@@ -1,0 +1,59 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { RiArrowRightUpLine } from "react-icons/ri";
+import { Image } from "astro:assets";
+
+const allPosts = await getCollection("blogs");
+
+allPosts.sort((a: any, b: any) => {
+	const dateA = new Date(a.data.date);
+	const dateB = new Date(b.data.date);
+	return dateB.getTime() - dateA.getTime();
+});
+
+type Post = (typeof allPosts)[number];
+---
+
+<Layout title="Raghav Ruia • blogs">
+	<h1 class="text-primary font-serif text-[2.5rem] tracking-tight">Blogs</h1>
+	<h2 class="text-title text-base font-medium tracking-tight">some of my lores.</h2>
+	<section class="pt-4">
+		<div class="flex flex-col">
+			{
+				allPosts.map((post: Post) => (
+					<a
+						href={"/blogs/" + post.id}
+						target="_self"
+						class="group md:hover:bg-hoverColor -mx-3 mt-2 flex w-full gap-2.5 overflow-hidden rounded-xl px-3 py-3 transition-all duration-300 ease-in-out md:items-start md:hover:scale-105">
+						<Image
+							src={post.data.cover}
+							width={250}
+							height={250}
+							format="avif"
+							loading="lazy"
+							class="border-body/20 group-hover:border-primary/40 !m-0 block aspect-square h-12 w-12 rounded-md border object-cover object-center"
+							alt="cover image for posts in blogs"
+						/>
+						<div class="flex w-full flex-col items-start">
+							<div class="flex w-full flex-col gap-0.5 md:flex-row md:items-center md:justify-between">
+							<h2 class="text-title group-hover:text-primary flex items-center font-medium tracking-tight">
+								<span>{post.data.title}</span>
+								<RiArrowRightUpLine className="ml-1 text-primary opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
+							</h2>
+							</div>
+
+							<p class="text-body w-full break-words pt-0.5 text-sm font-normal md:max-w-[90%]">
+  							{post.data.excerpt}
+							</p>
+							
+							<p class="text-body text-xs font-normal self-end text-right md:text-sm">
+  							{new Date(post.data.date).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}
+							</p>
+						</div>
+					</a>
+				))
+			}
+		</div>
+	</section>
+</Layout>

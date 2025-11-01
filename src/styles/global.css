@@ -1,0 +1,159 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* @theme {
+	/* Light Theme (White & Black*/
+	/* --color-bgColor: #FDFFF4;   warm off-white */
+	/* --color-primary: black;   brand accent */
+	/* --color-title: #535353;     near-black headings */
+	/* --color-body: #666;      subdued body text */
+	/* --color-hoverColor: #deffeb;subtle hover bg */
+
+	/* --color-hoverColor: #deffeb; */
+	
+
+	/* --font-*: initial; */
+	/* --font-sans: Satoshi, sans-serif; */
+	/* --font-serif: Instrument-Serif, serif; */
+/* }  */
+
+@theme {
+	--color-bgColor: #FDFFF4;
+	--color-primary: #00997e;
+	--color-title: #535353;
+	--color-body: #666;
+	--color-hoverColor: #deffeb;
+
+	--font-*: initial;
+	--font-sans: Satoshi, sans-serif;
+	--font-serif: Instrument-Serif, serif;
+}
+
+.heading-anchor {
+	margin-left: 0.5rem;
+	opacity: 0;
+	transition: opacity 0.2s;
+	text-decoration: none;
+  }
+  
+  h1:hover .heading-anchor,
+  h2:hover .heading-anchor,
+  h3:hover .heading-anchor,
+  h4:hover .heading-anchor,
+  h5:hover .heading-anchor,
+  h6:hover .heading-anchor {
+	opacity: 1;
+  }
+
+/* Mask gradients for blur effect */
+.mask-gradient-1 {
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 1) 12.5%,
+		rgba(0, 0, 0, 1) 25%,
+		rgba(0, 0, 0, 0) 37.5%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 1) 12.5%,
+		rgba(0, 0, 0, 1) 25%,
+		rgba(0, 0, 0, 0) 37.5%
+	);
+}
+
+.mask-gradient-2 {
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 12.5%,
+		rgba(0, 0, 0, 1) 25%,
+		rgba(0, 0, 0, 1) 37.5%,
+		rgba(0, 0, 0, 0) 50%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 12.5%,
+		rgba(0, 0, 0, 1) 25%,
+		rgba(0, 0, 0, 1) 37.5%,
+		rgba(0, 0, 0, 0) 50%
+	);
+}
+
+.mask-gradient-3 {
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 25%,
+		rgba(0, 0, 0, 1) 37.5%,
+		rgba(0, 0, 0, 1) 50%,
+		rgba(0, 0, 0, 0) 62.5%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 25%,
+		rgba(0, 0, 0, 1) 37.5%,
+		rgba(0, 0, 0, 1) 50%,
+		rgba(0, 0, 0, 0) 62.5%
+	);
+}
+
+.mask-gradient-4 {
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 37.5%,
+		rgba(0, 0, 0, 1) 50%,
+		rgba(0, 0, 0, 1) 62.5%,
+		rgba(0, 0, 0, 0) 75%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 37.5%,
+		rgba(0, 0, 0, 1) 50%,
+		rgba(0, 0, 0, 1) 62.5%,
+		rgba(0, 0, 0, 0) 75%
+	);
+}
+
+.mask-gradient-5 {
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 50%,
+		rgba(0, 0, 0, 1) 62.5%,
+		rgba(0, 0, 0, 1) 75%,
+		rgba(0, 0, 0, 0) 87.5%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 50%,
+		rgba(0, 0, 0, 1) 62.5%,
+		rgba(0, 0, 0, 1) 75%,
+		rgba(0, 0, 0, 0) 87.5%
+	);
+}
+
+.mask-gradient-6 {
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 62.5%,
+		rgba(0, 0, 0, 1) 75%,
+		rgba(0, 0, 0, 1) 87.5%,
+		rgba(0, 0, 0, 0) 100%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 62.5%,
+		rgba(0, 0, 0, 1) 75%,
+		rgba(0, 0, 0, 1) 87.5%,
+		rgba(0, 0, 0, 0) 100%
+	);
+}
+
+.mask-gradient-7 {
+	-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%);
+	mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%);
+}
+
+.mask-gradient-8 {
+	-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%);
+	mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%);
+}

@@ -1,0 +1,24 @@
+[
+	{
+		"id": 1,
+		"name": "Resume",
+		"url": "/resume",
+		"target": "_self",
+		"icon": "resume"
+	},
+	{
+		"id": 2,
+		"name": "LinkedIn",
+		"url": "https://www.linkedin.com/in/raghav-ruia/",
+		"target": "_blank",
+		"icon": "linkedin"
+	},
+	{
+		"id": 3,
+		"name": "Email",
+		"url": "mailto:raghavruia.work@gmail.com",
+		"target": "_blank",
+		"icon": "email"
+	}
+
+]
