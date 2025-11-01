@@ -1,17 +1,23 @@
 import { marked } from "marked";
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoArrowUpSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import { messageVariants, greetingVariants } from "../../utils/animationVariants";
-import { sanitizeHTML } from "../../utils/sanitize";
+import DOMPurify from "dompurify";
 
 export default function RaghavAI() {
+	const [isClient, setIsClient] = useState(false);
+
+	useEffect(() => {
+		setIsClient(true);
+	}, []);
+
 	const renderer = new marked.Renderer();
 
 	renderer.code = ({ text, lang }) => {
 		const languageClass = lang ? `language-${lang}` : "";
-		return `<pre class="p-1.5 overflow-auto"><code class="${languageClass} text-slate-700 whitespace-pre-wrap break-words text-xs">${text}</code></pre>`;
+		return `<pre class="p-1.5 overflow-auto"><code class="${languageClass} text-slate-700 whitespace-pre-wrap wrap-break-word text-xs">${text}</code></pre>`;
 	};
 
 	renderer.link = ({ href, text }) =>
@@ -26,6 +32,8 @@ export default function RaghavAI() {
 	});
 
 	const chatContainerRef = useRef<HTMLDivElement>(null);
+	// Ref used to track a pending auto-submit when we set the input programmatically.
+	const pendingSubmitRef = useRef<string | null>(null);
 
 	useEffect(() => {
 		if (chatContainerRef.current) {
@@ -40,13 +48,32 @@ export default function RaghavAI() {
 		}
 	}, [messages]);
 
-	const handleButtonClick: (text: string) => void = (text: string) => {
+	const handleButtonClick = (text: string) => {
+		if (status === "streaming" || status === "submitted") return;
+		if (pendingSubmitRef.current) return;
+		pendingSubmitRef.current = text;
 		setInput(text);
 	};
 
+	useEffect(() => {
+		if (!pendingSubmitRef.current) return;
+		if (input !== pendingSubmitRef.current) return;
+
+		const evt = { preventDefault: () => {} } as any;
+		pendingSubmitRef.current = null;
+		handleSubmit(evt);
+	}, [input, handleSubmit]);
+
 	const sanitizeMarkdown = (content: string): string => {
+		if (!isClient) return content;
 		const htmlContent = marked.parse(content) as string;
-		return sanitizeHTML(htmlContent);
+		return DOMPurify.sanitize(htmlContent, {
+			ALLOWED_TAGS: ["p", "br", "strong", "em", "code", "pre", "a", "ul", "ol", "li", "blockquote"],
+			ALLOWED_ATTR: ["href", "target", "rel", "class"],
+			ALLOW_DATA_ATTR: false,
+			FORBID_TAGS: ["script", "style", "iframe", "object", "embed", "form", "input", "textarea", "select", "button"],
+			FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover", "onfocus", "onblur", "onchange", "onsubmit"],
+		});
 	};
 
 	const isProcessing = status === "streaming" || status === "submitted";
