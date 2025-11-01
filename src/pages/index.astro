@@ -141,65 +141,67 @@ import { PiMoonFill } from "react-icons/pi";
 
 	<script>
 		// Handle tooltip for mobile/tablet (click) - Desktop uses CSS hover
-		const tooltipWrapper = document.getElementById("tooltip-wrapper");
-		const tooltipTrigger = document.getElementById("tooltip-trigger");
-		const tooltipContent = document.getElementById("tooltip-content");
-		const backdrop = document.getElementById("tooltip-backdrop");
+		document.addEventListener('astro:page-load', () => {
+			const tooltipWrapper = document.getElementById("tooltip-wrapper");
+			const tooltipTrigger = document.getElementById("tooltip-trigger");
+			const tooltipContent = document.getElementById("tooltip-content");
+			const backdrop = document.getElementById("tooltip-backdrop");
 
-		if (tooltipWrapper && tooltipTrigger && tooltipContent && backdrop) {
-			let isTooltipOpen = false;
+			if (tooltipWrapper && tooltipTrigger && tooltipContent && backdrop) {
+				let isTooltipOpen = false;
 
-			const showTooltip = () => {
-				isTooltipOpen = true;
-				tooltipContent.classList.remove("opacity-0", "scale-95", "invisible");
-				tooltipContent.classList.add("opacity-100", "scale-100", "visible");
-				backdrop.style.backgroundColor = "rgba(0, 0, 0, 0.15)";
-				backdrop.style.opacity = "1";
-				backdrop.classList.remove("pointer-events-none");
-			};
+				const showTooltip = () => {
+					isTooltipOpen = true;
+					tooltipContent.classList.remove("opacity-0", "scale-95", "invisible");
+					tooltipContent.classList.add("opacity-100", "scale-100", "visible");
+					backdrop.style.backgroundColor = "rgba(0, 0, 0, 0.15)";
+					backdrop.style.opacity = "1";
+					backdrop.classList.remove("pointer-events-none");
+				};
 
-			const hideTooltip = () => {
-				isTooltipOpen = false;
-				tooltipContent.classList.remove("opacity-100", "scale-100", "visible");
-				tooltipContent.classList.add("opacity-0", "scale-95", "invisible");
-				backdrop.style.backgroundColor = "rgba(0, 0, 0, 0)";
-				backdrop.style.opacity = "0";
-				backdrop.classList.add("pointer-events-none");
-			};
+				const hideTooltip = () => {
+					isTooltipOpen = false;
+					tooltipContent.classList.remove("opacity-100", "scale-100", "visible");
+					tooltipContent.classList.add("opacity-0", "scale-95", "invisible");
+					backdrop.style.backgroundColor = "rgba(0, 0, 0, 0)";
+					backdrop.style.opacity = "0";
+					backdrop.classList.add("pointer-events-none");
+				};
 
-			const toggleTooltip = (e: Event) => {
-				if (typeof e.preventDefault === "function") e.preventDefault();
-				if (typeof e.stopPropagation === "function") e.stopPropagation();
-				if (isTooltipOpen) {
-					hideTooltip();
-				} else {
-					showTooltip();
-				}
-			};
+				const toggleTooltip = (e: Event) => {
+					if (typeof e.preventDefault === "function") e.preventDefault();
+					if (typeof e.stopPropagation === "function") e.stopPropagation();
+					if (isTooltipOpen) {
+						hideTooltip();
+					} else {
+						showTooltip();
+					}
+				};
 
-			// Mobile/Tablet: Click/Touch events only
-			tooltipTrigger.addEventListener("click", toggleTooltip);
-			tooltipTrigger.addEventListener("touchend", (e: TouchEvent) => {
-				if (typeof e.preventDefault === "function") e.preventDefault();
-				toggleTooltip(e);
-			});
+				// Mobile/Tablet: Click/Touch events only
+				tooltipTrigger.addEventListener("click", toggleTooltip);
+				tooltipTrigger.addEventListener("touchend", (e: TouchEvent) => {
+					if (typeof e.preventDefault === "function") e.preventDefault();
+					toggleTooltip(e);
+				});
 
-			// Close tooltip when clicking backdrop
-			backdrop.addEventListener("click", hideTooltip);
+				// Close tooltip when clicking backdrop
+				backdrop.addEventListener("click", hideTooltip);
 
-			// Close tooltip when clicking outside
-			document.addEventListener("click", (e: Event) => {
-				if (!isTooltipOpen) return;
-				const target = e.target;
-				if (!(target instanceof Node) || !tooltipWrapper.contains(target)) {
-					hideTooltip();
-				}
-			});
+				// Close tooltip when clicking outside
+				document.addEventListener("click", (e: Event) => {
+					if (!isTooltipOpen) return;
+					const target = e.target;
+					if (!(target instanceof Node) || !tooltipWrapper.contains(target)) {
+						hideTooltip();
+					}
+				});
 
-			// Prevent closing when clicking inside tooltip content
-			tooltipContent.addEventListener("click", (e) => {
-				e.stopPropagation();
-			});
-		}
+				// Prevent closing when clicking inside tooltip content
+				tooltipContent.addEventListener("click", (e) => {
+					e.stopPropagation();
+				});
+			}
+		});	
 	</script>
 </Layout>
