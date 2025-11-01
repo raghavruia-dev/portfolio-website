@@ -59,11 +59,19 @@ export async function GET({ props }: Props) {
 				{
 					tw: "flex items-center",
 				},
-				React.createElement("img", {
-					tw: "w-6 h-6 rounded-full mr-4",
-					src: "https://www.raghavruia.com/favicon.svg",
-					alt: "Raghav Ruia",
-				}),
+				(() => {
+					try {
+						const faviconSvg = fs.readFileSync(path.resolve(process.cwd(), "./public/favicon.svg"), "utf8");
+						const faviconDataUri = `data:image/svg+xml;utf8,${encodeURIComponent(faviconSvg)}`;
+						return React.createElement("img", {
+							tw: "w-6 h-6 rounded-full mr-4",
+							src: faviconDataUri,
+							alt: "Raghav Ruia",
+						});
+					} catch (err) {
+						return React.createElement("div", { tw: "w-6 h-6 rounded-full mr-4 bg-gray-200" });
+					}
+				})(),
 				React.createElement(
 					"div",
 					{

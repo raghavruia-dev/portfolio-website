@@ -167,9 +167,9 @@ import { PiMoonFill } from "react-icons/pi";
 				backdrop.classList.add("pointer-events-none");
 			};
 
-			const toggleTooltip = (e) => {
-				e.preventDefault();
-				e.stopPropagation();
+			const toggleTooltip = (e: Event) => {
+				if (typeof e.preventDefault === "function") e.preventDefault();
+				if (typeof e.stopPropagation === "function") e.stopPropagation();
 				if (isTooltipOpen) {
 					hideTooltip();
 				} else {
@@ -183,8 +183,8 @@ import { PiMoonFill } from "react-icons/pi";
 
 			// Mobile/Tablet: Click/Touch events
 			tooltipTrigger.addEventListener("click", toggleTooltip);
-			tooltipTrigger.addEventListener("touchend", (e) => {
-				e.preventDefault(); // Prevent double-firing on touch devices
+			tooltipTrigger.addEventListener("touchend", (e: TouchEvent) => {
+				if (typeof e.preventDefault === "function") e.preventDefault();
 				toggleTooltip(e);
 			});
 
@@ -196,8 +196,10 @@ import { PiMoonFill } from "react-icons/pi";
 			backdrop.addEventListener("click", hideTooltip);
 
 			// Close tooltip when clicking outside
-			document.addEventListener("click", (e) => {
-				if (isTooltipOpen && !tooltipWrapper.contains(e.target)) {
+			document.addEventListener("click", (e: Event) => {
+				if (!isTooltipOpen) return;
+				const target = e.target;
+				if (!(target instanceof Node) || !tooltipWrapper.contains(target)) {
 					hideTooltip();
 				}
 			});
