@@ -79,7 +79,7 @@ import { PiMoonFill } from "react-icons/pi";
 						</button>
 						<span
 							id="tooltip-content"
-							class="border-body/20 pointer-events-none invisible absolute top-full left-1/2 z-20 mt-4 w-[min(80vw,22rem)] -translate-x-1/2 scale-95 rounded-xl border bg-white/95 p-4 opacity-0 shadow-xl transition-all duration-300 ease-in-out select-text"
+							class="border-body/20 pointer-events-none invisible absolute top-full left-1/2 z-20 mt-2 w-[min(80vw,22rem)] -translate-x-1/2 scale-95 rounded-xl border bg-white/95 p-4 opacity-0 shadow-xl transition-all duration-300 ease-in-out select-text md:group-hover:visible md:group-hover:scale-100 md:group-hover:opacity-100"
 							style="transform-origin: 50% -10px;">
 							<span
 								class="absolute bottom-full left-1/2 h-0 w-0 -translate-x-1/2 border-r-[10px] border-b-[10px] border-l-[10px] border-r-transparent border-b-white/95 border-l-transparent"
@@ -140,7 +140,7 @@ import { PiMoonFill } from "react-icons/pi";
 	</section>
 
 	<script>
-		// Handle tooltip for all screen sizes (hover on desktop, click on mobile/tablet)
+		// Handle tooltip for mobile/tablet (click) - Desktop uses CSS hover
 		const tooltipWrapper = document.getElementById("tooltip-wrapper");
 		const tooltipTrigger = document.getElementById("tooltip-trigger");
 		const tooltipContent = document.getElementById("tooltip-content");
@@ -151,8 +151,8 @@ import { PiMoonFill } from "react-icons/pi";
 
 			const showTooltip = () => {
 				isTooltipOpen = true;
-				tooltipContent.classList.remove("opacity-0", "scale-95", "invisible", "pointer-events-none");
-				tooltipContent.classList.add("opacity-100", "scale-100", "visible", "pointer-events-auto");
+				tooltipContent.classList.remove("opacity-0", "scale-95", "invisible");
+				tooltipContent.classList.add("opacity-100", "scale-100", "visible");
 				backdrop.style.backgroundColor = "rgba(0, 0, 0, 0.15)";
 				backdrop.style.opacity = "1";
 				backdrop.classList.remove("pointer-events-none");
@@ -160,8 +160,8 @@ import { PiMoonFill } from "react-icons/pi";
 
 			const hideTooltip = () => {
 				isTooltipOpen = false;
-				tooltipContent.classList.remove("opacity-100", "scale-100", "visible", "pointer-events-auto");
-				tooltipContent.classList.add("opacity-0", "scale-95", "invisible", "pointer-events-none");
+				tooltipContent.classList.remove("opacity-100", "scale-100", "visible");
+				tooltipContent.classList.add("opacity-0", "scale-95", "invisible");
 				backdrop.style.backgroundColor = "rgba(0, 0, 0, 0)";
 				backdrop.style.opacity = "0";
 				backdrop.classList.add("pointer-events-none");
@@ -177,20 +177,12 @@ import { PiMoonFill } from "react-icons/pi";
 				}
 			};
 
-			// Desktop: Hover events
-			tooltipWrapper.addEventListener("mouseenter", showTooltip);
-			tooltipWrapper.addEventListener("mouseleave", hideTooltip);
-
-			// Mobile/Tablet: Click/Touch events
+			// Mobile/Tablet: Click/Touch events only
 			tooltipTrigger.addEventListener("click", toggleTooltip);
 			tooltipTrigger.addEventListener("touchend", (e: TouchEvent) => {
 				if (typeof e.preventDefault === "function") e.preventDefault();
 				toggleTooltip(e);
 			});
-
-			// Keyboard navigation
-			tooltipWrapper.addEventListener("focusin", showTooltip);
-			tooltipWrapper.addEventListener("focusout", hideTooltip);
 
 			// Close tooltip when clicking backdrop
 			backdrop.addEventListener("click", hideTooltip);
