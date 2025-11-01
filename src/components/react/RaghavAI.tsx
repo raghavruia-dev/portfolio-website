@@ -32,6 +32,8 @@ export default function RaghavAI() {
 	});
 
 	const chatContainerRef = useRef<HTMLDivElement>(null);
+	// Ref used to track a pending auto-submit when we set the input programmatically.
+	const pendingSubmitRef = useRef<string | null>(null);
 
 	useEffect(() => {
 		if (chatContainerRef.current) {
@@ -47,8 +49,20 @@ export default function RaghavAI() {
 	}, [messages]);
 
 	const handleButtonClick = (text: string) => {
+		if (status === "streaming" || status === "submitted") return;
+		if (pendingSubmitRef.current) return;
+		pendingSubmitRef.current = text;
 		setInput(text);
 	};
+
+	useEffect(() => {
+		if (!pendingSubmitRef.current) return;
+		if (input !== pendingSubmitRef.current) return;
+
+		const evt = { preventDefault: () => {} } as any;
+		pendingSubmitRef.current = null;
+		handleSubmit(evt);
+	}, [input, handleSubmit]);
 
 	const sanitizeMarkdown = (content: string): string => {
 		if (!isClient) return content;
