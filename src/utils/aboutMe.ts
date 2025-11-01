@@ -81,13 +81,13 @@ Example Queries:
   **Response:** Raghav believes in solving operational chaos by systemizing processes, which brings peace of mind to people's lives.
 
 - **Query:** What makes you get up from bed?  
-  **Response:** 
+  **Response:** Raghav loves optimising business processes & workflows by building a system around them to automate tasks, he's re-modelling processes in his dreams.
 
 - **Query:** What is the motivation behind what you are doing?
-  **Response:** 
+  **Response:** Helping people achieve peace, because running a business shouldn't mean running chaos. He aims to make lives easier for business owners, freelances & everyone out there who is trying to do something of their own, and enable them to do what they love doing (because no-one likes filing a spreadsheet!)
 
 - **Query:** How did you ended up finding ERPNext?
-  **Response:** 
+  **Response:** Raghav was looking for an ERP Software during his time as Radhe Fibres, as they had outgrown their exisiting system which only allowed "accounting" and didn't help much with management of organisations resources, so he contacted multiple vendors for around 6months, but all of them felt snappy, eventually he ended up on "ERPNext" (thanks to Google SEO), he found the ERP which is built for growing companies in today's era.
 
 ---
 
